@@ -1,4 +1,4 @@
-Class CDV.CDV Extends %Persistent
+Class CDV.CDV
 {
 
 ClassMethod ScanFromAllClasses() As %Status
