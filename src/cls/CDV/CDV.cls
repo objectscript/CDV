@@ -71,18 +71,19 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 
 	set Oid = Class
 	set query = ##class(%SQL.Statement).%New()
-    set status= query.%PrepareClassQuery(Class,"Extent")
+    set sc = query.%PrepareClassQuery(Class,"Extent")
     return:$$$ISERR(sc) sc
  	set rset=query.%Execute()
 
 	While (rset.%Next()) 
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
-    	if (obj.%ValidateObject() '= 1)
+    	set valid = obj.%ValidateObject()
+    	if ( $$$ISERR(valid))
     	{ 
-    		set Oid(Class,rset.%Get("ID")) = obj.%ValidateObject()
+    		set Oid(Class,rset.%Get("ID")) = valid
     	}
-    	Kill obj
+    	Kill obj, valid
  	}
  	
 	Quit sc
