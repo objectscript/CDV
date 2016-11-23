@@ -65,7 +65,7 @@ ClassMethod ScanFromClassLocal(ByRef Classes As %String, Replace As %String = "%
 	Quit sc
 }
 
-ClassMethod ValidateClassObjects(Class As %String, Replace As %String = "%", Capitalize As %Boolean = {$$$YES}) As %Status
+ClassMethod ValidateClassObjects(Class As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 
