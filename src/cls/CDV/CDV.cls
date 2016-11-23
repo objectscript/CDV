@@ -72,10 +72,7 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 	set Oid = Class
 	set query = ##class(%SQL.Statement).%New()
     set status= query.%PrepareClassQuery(Class,"Extent")
-    if 'status 
-    {
-    	do $system.OBJ.DisplayError(status)
- 	}
+    return:$$$ISERR(sc) sc
  	set rset=query.%Execute()
 
 	While (rset.%Next()) 
