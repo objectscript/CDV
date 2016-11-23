@@ -1,16 +1,16 @@
 Class CDV.CDV
 {
 
-ClassMethod ScanFromAllClasses() As %Status
+ClassMethod ScanFromAllClasses(ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	set sc = $System.OBJ.GetClassList(.Classes, "/application=0 /system=0 /percent=0 /mapped=0")
 	Quit:$$$ISERR(sc)
-	Set sc = ..ScanFromClassLocal(.Classes)
+	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromSubclassesOf(Class As %String) As %Status
+ClassMethod ScanFromSubclassesOf(Class As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	Set RS = ##class(%ResultSet).%New("%Dictionary.ClassDefinition:SubclassOf")
@@ -24,11 +24,11 @@ ClassMethod ScanFromSubclassesOf(Class As %String) As %Status
 		Set Classes(RS.Data("Name")) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes)
+	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromMatchingClasses(Mask As %String) As %Status
+ClassMethod ScanFromMatchingClasses(Mask As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	
@@ -44,11 +44,11 @@ ClassMethod ScanFromMatchingClasses(Mask As %String) As %Status
 		Set Classes(RS.%GetData(1)) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes)
+	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromClassLocal(ByRef Classes As %String) As %Status
+ClassMethod ScanFromClassLocal(ByRef Classes As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc,sc1 As %Status = $$$OK
 	Set Class = ""
@@ -57,7 +57,7 @@ ClassMethod ScanFromClassLocal(ByRef Classes As %String) As %Status
 		Quit:Class=""
 		If ($classmethod(Class, "%Extends", "%RegisteredObject"))
 		{
-			Set sc1 = ..ValidateClassObjects(Class)
+			Set sc1 = ..ValidateClassObjects(Class, .Oid)
 		}
 		Set sc = $$$ADDSC(sc, sc1)		
 	}
@@ -65,7 +65,7 @@ ClassMethod ScanFromClassLocal(ByRef Classes As %String) As %Status
 	Quit sc
 }
 
-ClassMethod ValidateClassObjects(Class As %String) As %Status
+ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 
@@ -81,11 +81,13 @@ ClassMethod ValidateClassObjects(Class As %String) As %Status
 	While (rset.%Next()) 
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
-    	set Oid(Class,rset.%Get("ID")) = obj.%ValidateObject()
+    	if (obj.%ValidateObject() '= 1)
+    	{ 
+    		set Oid(Class,rset.%Get("ID")) = obj.%ValidateObject()
+    	}
     	Kill obj
  	}
-	
-	zw Oid
+ 	
 	Quit sc
 }
 
