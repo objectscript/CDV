@@ -89,23 +89,5 @@ ClassMethod ValidateClassObjects(Class As %String) As %Status
 	Quit sc
 }
 
-Storage Default
-{
-<Data name="CDVDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>Name</Value>
-</Value>
-</Data>
-<DataLocation>^CDV.CDVD</DataLocation>
-<DefaultData>CDVDefaultData</DefaultData>
-<IdLocation>^CDV.CDVD</IdLocation>
-<IndexLocation>^CDV.CDVI</IndexLocation>
-<StreamLocation>^CDV.CDVS</StreamLocation>
-<Type>%Library.CacheStorage</Type>
-}
-
 }
 
