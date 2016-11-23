@@ -1,16 +1,16 @@
 Class CDV.CDV Extends %Persistent
 {
 
-ClassMethod ScanFromAllClasses(Replace As %String = "%", Capitalize As %Boolean = {$$$YES}) As %Status
+ClassMethod ScanFromAllClasses() As %Status
 {
 	#Dim sc As %Status = $$$OK
 	set sc = $System.OBJ.GetClassList(.Classes, "/application=0 /system=0 /percent=0 /mapped=0")
 	Quit:$$$ISERR(sc)
-	Set sc = ..ScanFromClassLocal(.Classes, Replace, Capitalize)
+	Set sc = ..ScanFromClassLocal(.Classes)
 	Quit sc
 }
 
-ClassMethod ScanFromSubclassesOf(Class As %String, Replace As %String = "%", Capitalize As %Boolean = {$$$YES}) As %Status
+ClassMethod ScanFromSubclassesOf(Class As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	Set RS = ##class(%ResultSet).%New("%Dictionary.ClassDefinition:SubclassOf")
@@ -24,11 +24,11 @@ ClassMethod ScanFromSubclassesOf(Class As %String, Replace As %String = "%", Cap
 		Set Classes(RS.Data("Name")) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes, Replace, Capitalize)
+	Set sc = ..ScanFromClassLocal(.Classes)
 	Quit sc
 }
 
-ClassMethod ScanFromMatchingClasses(Mask As %String, Replace As %String = "%", Capitalize As %Boolean = {$$$YES}) As %Status
+ClassMethod ScanFromMatchingClasses(Mask As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	
@@ -44,11 +44,11 @@ ClassMethod ScanFromMatchingClasses(Mask As %String, Replace As %String = "%", C
 		Set Classes(RS.%GetData(1)) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes, Replace, Capitalize)
+	Set sc = ..ScanFromClassLocal(.Classes)
 	Quit sc
 }
 
-ClassMethod ScanFromClassLocal(ByRef Classes As %String, Replace As %String = "%", Capitalize As %Boolean = {$$$YES}) As %Status
+ClassMethod ScanFromClassLocal(ByRef Classes As %String) As %Status
 {
 	#Dim sc,sc1 As %Status = $$$OK
 	Set Class = ""
@@ -57,7 +57,7 @@ ClassMethod ScanFromClassLocal(ByRef Classes As %String, Replace As %String = "%
 		Quit:Class=""
 		If ($classmethod(Class, "%Extends", "%Persistent"))
 		{
-			Set sc1 = ..ValidateClassObjects(Class, Replace, Capitalize)
+			Set sc1 = ..ValidateClassObjects(Class)
 		}
 		Set sc = $$$ADDSC(sc, sc1)		
 	}
