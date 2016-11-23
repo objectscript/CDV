@@ -78,6 +78,7 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 	While (rset.%Next()) 
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
+	do $system.CLS.SetModified(obj, 1)
     	set valid = obj.%ValidateObject()
     	if ( $$$ISERR(valid))
     	{ 
