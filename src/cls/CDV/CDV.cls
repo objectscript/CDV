@@ -55,7 +55,7 @@ ClassMethod ScanFromClassLocal(ByRef Classes As %String, ByRef Oid As %String) A
 	For { 
 		Set Class = $Order(Classes(Class))
 		Quit:Class=""
-		If ($classmethod(Class, "%Extends", "%RegisteredObject"))
+		If (##class(%Dictionary.CompiledClass).%ExistsId(Class) && $classmethod(Class, "%Extends", "%Library.Persistent"))
 		{
 			Set sc1 = ..ValidateClassObjects(Class, .Oid)
 		}
