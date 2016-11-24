@@ -69,7 +69,7 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 {
 	#Dim sc As %Status = $$$OK
 
-	set Oid = Class
+	set Oid(Class) = 0
 	set query = ##class(%SQL.Statement).%New()
     set sc = query.%PrepareClassQuery(Class,"Extent")
     return:$$$ISERR(sc) sc
@@ -78,10 +78,11 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 	While (rset.%Next()) 
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
-	do $system.CLS.SetModified(obj, 1)
+		do $system.CLS.SetModified(obj, 1)
     	set valid = obj.%ValidateObject()
     	if ( $$$ISERR(valid))
     	{ 
+    		set Oid(Class) = Oid(Class) + 1
     		set Oid(Class,rset.%Get("ID")) = valid
     	}
     	Kill obj, valid
