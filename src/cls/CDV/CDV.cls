@@ -1,16 +1,16 @@
 Class CDV.CDV
 {
 
-ClassMethod ScanFromAllClasses(ByRef Oid As %String) As %Status
+ClassMethod ScanAllClasses(ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	set sc = $System.OBJ.GetClassList(.Classes, "/application=0 /system=0 /percent=0 /mapped=0")
 	Quit:$$$ISERR(sc)
-	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
+	Set sc = ..ScanClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromSubclassesOf(Class As %String, ByRef Oid As %String) As %Status
+ClassMethod ScanSubclassesOf(Class As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	Set RS = ##class(%ResultSet).%New("%Dictionary.ClassDefinition:SubclassOf")
@@ -24,11 +24,11 @@ ClassMethod ScanFromSubclassesOf(Class As %String, ByRef Oid As %String) As %Sta
 		Set Classes(RS.Data("Name")) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
+	Set sc = ..ScanClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromMatchingClasses(Mask As %String, ByRef Oid As %String) As %Status
+ClassMethod ScanMatchingClasses(Mask As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
 	
@@ -44,11 +44,11 @@ ClassMethod ScanFromMatchingClasses(Mask As %String, ByRef Oid As %String) As %S
 		Set Classes(RS.%GetData(1)) = ""
 	}
 	
-	Set sc = ..ScanFromClassLocal(.Classes, .Oid)
+	Set sc = ..ScanClassLocal(.Classes, .Oid)
 	Quit sc
 }
 
-ClassMethod ScanFromClassLocal(ByRef Classes As %String, ByRef Oid As %String) As %Status
+ClassMethod ScanClassLocal(ByRef Classes As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc,sc1 As %Status = $$$OK
 	Set Class = ""
@@ -87,8 +87,26 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
     	}
     	Kill obj, valid
  	}
- 	
+ 	if (Oid(Class) = 0) { Kill Oid(Class) }
 	Quit sc
+}
+
+Storage Default
+{
+<Data name="CDVDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+</Data>
+<DataLocation>^CDV.CDVD</DataLocation>
+<DefaultData>CDVDefaultData</DefaultData>
+<IdLocation>^CDV.CDVD</IdLocation>
+<IndexLocation>^CDV.CDVI</IndexLocation>
+<StreamLocation>^CDV.CDVS</StreamLocation>
+<Type>%Library.CacheStorage</Type>
 }
 
 }
