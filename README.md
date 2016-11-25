@@ -5,9 +5,9 @@ Class data verifier. Utility validates Caché classes properties data according 
 ##Use
 Import classes and call one of the entry points: 
 
-    s st = ##class(CDV.CDV).ScanFromAllClasses(.Oid) - for all user classes
-    s st = ##class(CDV.CDV).ScanFromSubclassesOf(Class, .Oid) - for subclasses
-    s st = ##class(CDV.CDV).ScanFromMatchingClasses(Mask, .Oid) - for LIKE SQL
+    s st = ##class(CDV.CDV).ScanAllClasses(.Oid) - for all user classes
+    s st = ##class(CDV.CDV).ScanSubclassesOf(Class, .Oid) - for subclasses
+    s st = ##class(CDV.CDV).ScanMatchingClasses(Mask, .Oid) - for LIKE SQL
     
 The utility works only in a current namespace.
 
@@ -22,7 +22,7 @@ Arguments:
 1. Import CDV.CDV into desired namespace
 2. Run in terminal:
 
-        s st = ##class(CDV.CDV).ScanFromAllClasses(.Oid)
+        s st = ##class(CDV.CDV).ScanAllClasses(.Oid)
         zw Oid
 
     
