@@ -95,6 +95,5 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
  	w !,Class, " has ",Oid(Class)," invalid objects "
 	Quit sc
 }
-
 }
 
