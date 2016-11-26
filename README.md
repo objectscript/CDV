@@ -17,7 +17,7 @@ Arguments:
 - `Class` - Scan all subclasses Of a class (and class itself).
 - `Mask` - Passed into the SQL query `SELECT ID FROM %Dictionary.ClassDefinition Where ID LIKE ?`
 
-##Exemple
+##Example
 
 1. Import CDV.CDV into desired namespace
 2. Run in terminal:
