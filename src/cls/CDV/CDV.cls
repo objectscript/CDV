@@ -68,7 +68,8 @@ ClassMethod ScanClassLocal(ByRef Classes As %String, ByRef Oid As %String) As %S
 ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Status
 {
 	#Dim sc As %Status = $$$OK
-
+	
+	w !,"__________________________________________________________________________________",!
 	set Oid(Class) = 0
 	set query = ##class(%SQL.Statement).%New()
     set sc = query.%PrepareClassQuery(Class,"Extent")
@@ -79,15 +80,19 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
 		do $system.CLS.SetModified(obj, 1)
-    	set valid = obj.%ValidateObject()
-    	if ( $$$ISERR(valid))
+		w !,"Class: ",Class,!,"Object: ", rset.%Get("ID"),!
+		w "-----------------------------------------------"
+    	set valid = $system.Status.DisplayError(obj.%ValidateObject())
+    	w !,!,!
+    	
+    	if (valid)
     	{ 
     		set Oid(Class) = Oid(Class) + 1
-    		set Oid(Class,rset.%Get("ID")) = valid
+    		set Oid(Class, rset.%Get("ID")) = "Invalide"
     	}
     	Kill obj, valid
  	}
- 	if (Oid(Class) = 0) { Kill Oid(Class) }
+ 	w !,Class, " has ",Oid(Class)," invalid objects "
 	Quit sc
 }
 
