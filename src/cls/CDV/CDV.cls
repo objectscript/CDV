@@ -80,20 +80,23 @@ ClassMethod ValidateClassObjects(Class As %String, ByRef Oid As %String) As %Sta
 	{
     	set obj = $classmethod(Class, "%OpenId", rset.%Get("ID"))
 		do $system.CLS.SetModified(obj, 1)
-		w !,"Class: ",Class,!,"Object: ", rset.%Get("ID"),!
-		w "-----------------------------------------------"
-    	set valid = $system.Status.DisplayError(obj.%ValidateObject())
-    	w !,!,!
     	
-    	if (valid)
-    	{ 
-    		set Oid(Class) = Oid(Class) + 1
-    		set Oid(Class, rset.%Get("ID")) = "Invalide"
-    	}
+    	set sc = obj.%ValidateObject()
+		if $$$ISERR(sc) 
+		{
+			w !,"Class: ",Class,!,"Object: ", rset.%Get("ID"),!
+			w "-----------------------------------------------"
+    		do $system.Status.DisplayError(sc)
+    		w !,!,!
+		  	set Oid(Class) = Oid(Class) + 1
+		  	set Oid(Class, rset.%Get("ID")) = sc
+		}
     	Kill obj, valid
  	}
  	w !,Class, " has ",Oid(Class)," invalid objects "
+ 	set Oid(Class) = "has "_Oid(Class)_" invalid objects"
 	Quit sc
 }
+
 }
 
