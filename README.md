@@ -2,8 +2,7 @@
 Class data verifier. Utility validates Caché classes properties data according the properties type.
 
 
-##Use
-Import classes and call one of the entry points: 
+### Use Import classes and call one of the entry points: 
 
     s st = ##class(CDV.CDV).ScanAllClasses(.Oid) - for all user classes
     s st = ##class(CDV.CDV).ScanSubclassesOf(Class, .Oid) - for subclasses
@@ -17,7 +16,7 @@ Arguments:
 - `Class` - Scan all subclasses Of a class (and class itself).
 - `Mask` - Passed into the SQL query `SELECT ID FROM %Dictionary.ClassDefinition Where ID LIKE ?`
 
-##Example
+### Example
 
 1. Import CDV.CDV into desired namespace
 2. Run in terminal:
