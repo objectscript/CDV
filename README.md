@@ -1,12 +1,12 @@
-# CDV
+# IDP DV
 Class data verifier. Utility validates Caché classes properties data according the properties type.
 
 
 ### Use Import classes and call one of the entry points: 
 
-    s st = ##class(CDV.CDV).ScanAllClasses(.Oid) - for all user classes
-    s st = ##class(CDV.CDV).ScanSubclassesOf(Class, .Oid) - for subclasses
-    s st = ##class(CDV.CDV).ScanMatchingClasses(Mask, .Oid) - for LIKE SQL
+    s st = ##class(IDP.DV).ScanAllClasses(.Oid) - for all user classes
+    s st = ##class(IDP.DV).ScanSubclassesOf(Class, .Oid) - for subclasses
+    s st = ##class(IDP.DV).ScanMatchingClasses(Mask, .Oid) - for LIKE SQL
     
 The utility works only in a current namespace.
 
@@ -18,10 +18,10 @@ Arguments:
 
 ### Example
 
-1. Import CDV.CDV into desired namespace
+1. Import IDP.DV into desired namespace
 2. Run in terminal:
 
-        s st = ##class(CDV.CDV).ScanAllClasses(.Oid)
+        s st = ##class(IDP.DV).ScanAllClasses(.Oid)
         zw Oid
 
     
