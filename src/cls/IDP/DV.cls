@@ -1,4 +1,4 @@
-Class CDV.CDV
+Class IDP.DV
 {
 
 ClassMethod ScanAllClasses(ByRef Oid As %String) As %Status
