@@ -1,5 +1,5 @@
 # IDP DV
-Class data verifier. Utility validates Caché classes properties data according the properties type.
+Class data verifier. Utility validates Caché classes properties data according to the properties' types.
 
 
 ### Use Import classes and call one of the entry points: 
