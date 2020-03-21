@@ -1,5 +1,4 @@
 # IDP DV
-Class data verifier. Utility validates Intersystems IRIS classes properties data according to the properties' types.
 
 ## Instalation
 
