@@ -13,7 +13,7 @@ Some ways to import IDP package:
 Do $system.OBJ.Load("yourpath/IDP.DV.xml","ck")
 ```
 
-### Docker ###
+## Docker
 
 To install using Docker. Follow this instructions:
 
