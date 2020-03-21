@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+  <Document name="isc-dev.ZPM">
+    <Module>
+      <Name>idp-dv</Name>
+      <Version>1.2.0</Version>
+      <Packaging>module</Packaging>
+      <Resource Name="idpdv.PKG"/>
+    </Module>
+  </Document>
+</Export>
