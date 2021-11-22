@@ -19,7 +19,7 @@ To install using Docker. Follow this instructions:
 Open terminal and clone the repo into any local directory
 
 ```
-$ git https://github.com/intersystems-ru/CDV.git
+$ git clone https://github.com/intersystems-ru/CDV.git
 ```
 
 Open the terminal in this directory and run:
