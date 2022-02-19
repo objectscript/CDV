@@ -3,10 +3,10 @@
   <Document name="idp-dv.ZPM">
     <Module>
       <Name>idp-dv</Name>
-      <Version>1.3.1</Version>
-      <Description>Class data verifier. Utility validates Intersystems IRIS classes properties data according to the properties' types.</Description>
+      <Version>1.3.0</Version>
       <Packaging>module</Packaging>
-      <Resource Name="idpdv.PKG"/>
+	  <SourcesRoot>src</SourcesRoot> 
+      <Resource Name="IDP.PKG"/>
     </Module>
   </Document>
 </Export>
